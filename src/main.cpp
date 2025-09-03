@@ -61,9 +61,7 @@ void loop() {
     }
 
     delay(1000);
-  } 
-
-  else {
+  } else {
     if (!break_led_flashed) {
       M5.Speaker.tone(300, 200);
       digitalWrite(LED, HIGH);

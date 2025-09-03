@@ -55,13 +55,8 @@ void loop() {
 
   if (Serial.available() > 0) {
     char c = Serial.read();
-    if (c == 'u') {
-      Serial.println("Recieved: increaseBrightness");
-      M5.Display.setBrightness(M5.Display.getBrightness() + 1);
-    } else if (c == 'd') {
-      Serial.println("Recieved: decreaseBrightness");
-      M5.Display.setBrightness(M5.Display.getBrightness() - 1);
-    } else if (c == 'r') {
+
+    if (c == 'r') {
       Serial.println("Recieved: resetTimer");
       resetTimer();
     } else if (c == 't') {

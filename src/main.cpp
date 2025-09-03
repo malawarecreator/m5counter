@@ -47,41 +47,49 @@ void setup() {
 void loop() {
   M5.update();
 
-  if (count_min <= 25) {
+  if (count_min < 25) {
     M5.Display.clear();
     M5.Display.fillScreen(BLACK);
     M5.Display.setCursor(10, 40);
+
+    M5.Display.printf("%dmin %dsec\n", count_min, count_sec);
+
+    count_sec++;
     if (count_sec >= 60) {
       count_sec = 0;
       count_min++;
     }
-    M5.Display.printf("%dmin %dsec\n", count_min, count_sec);
-    count_sec++;
-    break_min = 5;
-    break_sec = 0;
+
     delay(1000);
-  } else {
+  } 
+
+  else {
     if (!break_led_flashed) {
       M5.Speaker.tone(300, 200);
       digitalWrite(LED, HIGH);
       break_led_flashed = true;
+      break_min = 5;    
+      break_sec = 0;
     }
+
     M5.Display.clear();
     M5.Display.fillScreen(BLACK);
-    M5.Display.setCursor(0, 0);
-    M5.Display.println("Break");
-    if (break_min <= 0) {
-      resetTimer();
-      break_led_flashed = false;
-      digitalWrite(LED, LOW);
-    } else {
-      if (break_sec <= 0 && break_min > 0) {
+    M5.Display.setCursor(10, 40);
+    M5.Display.printf("Break: %dmin %dsec\n", break_min, break_sec);
+
+    delay(1000);
+
+    if (break_sec == 0) {
+      if (break_min == 0) {
+        resetTimer();
+        break_led_flashed = false;
+        digitalWrite(LED, LOW);
+      } else {
         break_min--;
-        break_sec = 0;
+        break_sec = 59;
       }
+    } else {
       break_sec--;
-      M5.Display.setCursor(10, 40);
-      M5.Display.printf("%dmin %dsec\n", break_min, break_sec);
     }
   }
 }

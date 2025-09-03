@@ -42,6 +42,7 @@ void setup() {
   M5.Display.setTextSize(3);
   M5.Display.setCursor(0, 0);
   M5.Display.println("HELLO WORLD");
+  M5.Speaker.setVolume(125);
 }
 
 void loop() {
@@ -50,6 +51,7 @@ void loop() {
   if (M5.BtnA.wasPressed()) {
     resetTimer();
   } 
+
 
   if (Serial.available() > 0) {
     char c = Serial.read();
@@ -69,6 +71,12 @@ void loop() {
     }
   }
   if (count_min < 25) {
+
+    if (M5.BtnB.wasPressed()) {
+      count_min = 24;
+      count_sec = 59;
+    }
+
     M5.Display.clear();
     M5.Display.fillScreen(BLACK);
     M5.Display.setCursor(10, 40);
@@ -83,8 +91,12 @@ void loop() {
 
     delay(1000);
   } else {
+
+    if (M5.BtnB.wasPressed()) {
+      break_sec = 0;
+    }
     if (!break_led_flashed) {
-      M5.Speaker.tone(300, 200);
+      M5.Speaker.tone(600, 700);
       digitalWrite(LED, HIGH);
       break_led_flashed = true;
       break_min = 5;    

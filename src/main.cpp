@@ -22,6 +22,7 @@ void setup() {
   cfg.internal_rtc = false;
   cfg.output_power = false;
   cfg.internal_spk = true;
+  cfg.led_brightness = 10;
   M5.begin(cfg);
 
   pinMode(LED, OUTPUT);
@@ -31,7 +32,7 @@ void setup() {
   M5.Display.setTextColor(WHITE);
   M5.Display.setTextSize(5);
   M5.Display.setCursor(10, 40);
-  M5.Display.setBrightness(3);
+  M5.Display.setBrightness(2);
   M5.Display.println("BENWARE");
   M5.Speaker.tone(500);
   delay(3000);

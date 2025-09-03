@@ -22,7 +22,7 @@ void setup() {
   cfg.internal_rtc = false;
   cfg.output_power = false;
   cfg.internal_spk = true;
-  cfg.led_brightness = 10;
+  cfg.led_brightness = 5;
   M5.begin(cfg);
 
   pinMode(LED, OUTPUT);
@@ -47,6 +47,14 @@ void setup() {
 void loop() {
   M5.update();
 
+  if (Serial.available() > 0) {
+    char c = Serial.read();
+    if (c == 'u') {
+      M5.Display.setBrightness(M5.Display.getBrightness() + 1);
+    } else if (c == 'd') {
+      M5.Display.setBrightness(M5.Display.getBrightness() - 1);
+    }
+  }
   if (count_min < 25) {
     M5.Display.clear();
     M5.Display.fillScreen(BLACK);

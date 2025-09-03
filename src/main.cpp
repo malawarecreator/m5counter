@@ -62,6 +62,10 @@ void loop() {
     } else if (c == 'r') {
       Serial.println("Recieved: resetTimer");
       resetTimer();
+    } else if (c == 't') {
+      Serial.println("Recieved: triggerBreak");
+      count_min = 24;
+      count_sec = 59;
     }
   }
   if (count_min < 25) {

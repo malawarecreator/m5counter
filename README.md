@@ -15,3 +15,5 @@
 ## Serial commands:
 - r: resetTimer
 - t: triggerBreak
+
+## For button presses, you might need to hold down a little

@@ -22,7 +22,7 @@ void setup() {
   cfg.internal_rtc = false;
   cfg.output_power = false;
   cfg.internal_spk = true;
-  cfg.led_brightness = 5;
+  cfg.led_brightness = 3;
   M5.begin(cfg);
 
   pinMode(LED, OUTPUT);
@@ -47,12 +47,21 @@ void setup() {
 void loop() {
   M5.update();
 
+  if (M5.BtnA.wasPressed()) {
+    resetTimer();
+  } 
+
   if (Serial.available() > 0) {
     char c = Serial.read();
     if (c == 'u') {
+      Serial.println("Recieved: increaseVolume");
       M5.Display.setBrightness(M5.Display.getBrightness() + 1);
     } else if (c == 'd') {
+      Serial.println("Recieved: decreaseVolume");
       M5.Display.setBrightness(M5.Display.getBrightness() - 1);
+    } else if (c == 'r') {
+      Serial.println("Recieved: resetTimer");
+      resetTimer();
     }
   }
   if (count_min < 25) {

@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <M5Unified.hpp>
-#define LED 2
+#define LED 19
 
 int count_min = 0;
 int count_sec = 0;
@@ -29,7 +29,7 @@ void setup() {
 
   M5.Display.setRotation(1);
   M5.Display.fillScreen(BLACK);
-  M5.Display.setTextColor(WHITE);
+  M5.Display.setTextColor(CYAN);
   M5.Display.setTextSize(5);
   M5.Display.setCursor(10, 40);
   M5.Display.setBrightness(2);
@@ -39,10 +39,10 @@ void setup() {
   M5.Speaker.stop();
   M5.Display.clear();
   M5.Display.fillScreen(BLACK);
-  M5.Display.setTextSize(3);
+  M5.Display.setTextSize(2);
   M5.Display.setCursor(0, 0);
   M5.Display.println("HELLO WORLD");
-  M5.Speaker.setVolume(125);
+  M5.Speaker.setVolume(200);
 }
 
 void loop() {
@@ -76,7 +76,7 @@ void loop() {
     M5.Display.fillScreen(BLACK);
     M5.Display.setCursor(10, 40);
 
-    M5.Display.printf("%dmin %dsec\n", count_min, count_sec);
+    M5.Display.printf("Work: %dmin %dsec\n", count_min, count_sec);
 
     count_sec++;
     if (count_sec >= 60) {
@@ -105,11 +105,14 @@ void loop() {
 
     delay(1000);
 
+    if (break_min == 4 && break_sec <= 55) {
+      digitalWrite(LED, LOW);
+    }
+
     if (break_sec == 0) {
       if (break_min == 0) {
         resetTimer();
         break_led_flashed = false;
-        digitalWrite(LED, LOW);
       } else {
         break_min--;
         break_sec = 59;
